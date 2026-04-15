@@ -9,7 +9,7 @@
 
 #include <Eigen/Dense>
 #include <string>
-#include <Eigen/StdVector> // 必须包含此头文件以支持 vector<Matrix>
+#include <Eigen/StdVector> // 必须包含此头文件以支持 vector<Matrix> This header file must be included to support vector <Matrix>
 #include <vector>
 
 namespace sofa::core::objectmodel
@@ -30,7 +30,7 @@ class SOFA_MAGNETICPLUGIN_API MagneticTetraForceField
 public:
     SOFA_CLASS(MagneticTetraForceField, sofa::core::behavior::ForceField<sofa::defaulttype::Vec3Types>);
 
-    // 这一行宏是必须的，为了保证类成员中的 Eigen 固定尺寸类型正确对齐
+    // 这一行宏是必须的，为了保证类成员中的 Eigen 固定尺寸类型正确对齐 This macro line is necessary to ensure that the Eigen fixed-size type in the class members is correctly aligned.
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
     using Inherited = sofa::core::behavior::ForceField<sofa::defaulttype::Vec3Types>;
@@ -42,7 +42,7 @@ public:
     using SofaVec3 = sofa::type::Vec<3, Real>;
     using Vec4i = sofa::type::Vec4i;
 
-    // Eigen 类型
+    // Eigen Type
     using Mat3 = Eigen::Matrix<Real, 3, 3>;
     using Vec3 = Eigen::Matrix<Real, 3, 1>;
 
@@ -80,13 +80,13 @@ protected:
 
     std::vector<Vec4i> m_tetIndices;
     
-    // 【修正】使用 aligned_allocator 防止崩溃
+    // 【修正】使用 aligned_allocator 防止崩溃 [Correction] Use aligned_allocator to prevent crashes
     std::vector<Mat3, Eigen::aligned_allocator<Mat3>> m_DmInv;
     
     std::vector<bool> m_validTet;
 
 private:
-    // 内部帮助函数：使用迭代法计算旋转，避免 SVD 内存分配
+    // 内部帮助函数：使用迭代法计算旋转，避免 SVD 内存分配 Internal helper function: Uses an iterative method to calculate rotations, avoiding SVD memory allocation.
     static Mat3 computePolarRotation(const Mat3& F);
 
     bool m_profileDone{false};
